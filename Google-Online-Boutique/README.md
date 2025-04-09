@@ -59,8 +59,57 @@
     replicas: {{ .Values.replicaCount }}
   ```
 
+- `value.yaml`
 
+  - This is a place where the acutal value are set will be then substitued in the template file
 
+## Step By Step to create Helm Chart 
+
+#### Step 1 : I create Helm Chart for Frontend, Redis, and other Microservices 
+
+- To create Helm Chart : `helm create <helm-chart-name>`
+
+- Redis and Frontend have to be separte bcs has different configuration 
+
+#### Step 2 : Configure Deployment and Service in those Helm Chart 
+
+- Instead of hardcode the Values I use syntax for dynamically Values : `{{ .Values.<Name-of-Value>}}`
+
+#### Step 3 : Set Dynamic ENV for Deployment 
+
+- For 1 single ENV I can have container ENV var like this:
+
+```
+env: 
+- name: {{ .Values.containerEnvVar.key }}
+  value: {{ .Values.containerEnvVar.value }}
+```
+
+- For working with List of something . In this case ENV, Helm has built in fucntion called **Range**
+
+- **Range** is loop through a list and give me element one by one
+
+- For example :
+
+```
+env:
+{{- range .Values.ContainerEnvVars }}
+- name: {{ .name }}
+  value: {{ .value | quote}}
+{{- end }}
+```
+
+- Note: Value ENV variable alway interpreted as strings . So I use a built-in function called **quote** and will use piping syntax `|`
+  
+- Value output will look like this :
+
+```
+ContainerEnvVars: 
+- name: PORT
+  value: "8080"
+- name: DISABLE_PROFILER
+  value: "1"
+```
 
 
 
