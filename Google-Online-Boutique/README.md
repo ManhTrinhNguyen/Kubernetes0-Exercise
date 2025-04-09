@@ -1,4 +1,4 @@
-[Go to Step by Step] (#step-by-step-to-create-helm-chart)
+[Go to Step by Step](#step-by-step-to-create-helm-chart)
 
 # Create Helm Chart for Boutique Microservices
 
