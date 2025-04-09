@@ -1,0 +1,9 @@
+architecture: "replication"
+secondary:
+  replicaCount: 2
+global:
+  defaultStorageClass: "linode-block-storage"
+auth: 
+  rootPassword: "rootpassword"
+  username: "tim"
+  password: "password"

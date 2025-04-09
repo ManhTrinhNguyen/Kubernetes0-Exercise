@@ -1,0 +1,27 @@
+# Deployment and Service 
+appName: java-app
+serviceName: java-app-service
+replicaCount: 2
+ImagePullSecret: docker-authenticate
+containerPort: 8080
+servicePort: 8080
+requestCPU: 100m
+requestMemory: 64Mi
+limitCPU: 100m
+limitMemory: 100Mi
+imageName: 565393037799.dkr.ecr.us-west-1.amazonaws.com/java-app:2.0
+
+regularEnvData: {}
+
+secretName: java-secret
+secretData:
+  DB_USER: dGlt
+  DB_NAME: bXlfZGF0YWJhc2U=
+  DB_PWD: cGFzc3dvcmQ=
+
+configName: java-configmap
+configData: 
+  DB_SERVER: mysql-primary-0.mysql-primary-headless
+
+ingressName: java-ingress
+domainName: 23-239-6-119.ip.linodeusercontent.com

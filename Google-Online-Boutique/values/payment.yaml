@@ -1,0 +1,16 @@
+AppName: paymentservice
+ReplicaCount: 2
+ImageName: gcr.io/google-samples/microservices-demo/paymentservice
+ImageVersion: v0.8.0
+ContainerPort: 50051
+ServicePort: 50051
+ServiceType: ClusterIP
+ContainerEnvVars: 
+  - name: PORT
+    value: "50051"
+  - name: DISABLE_PROFILER
+    value: "1"
+RequestMemory: 64Mi
+RequestCPU: 250m
+LimitMemory: 128Mi
+LimitCPU: 500m

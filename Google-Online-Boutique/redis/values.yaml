@@ -1,0 +1,13 @@
+AppName: redis-cart
+ReplicaCount: 1
+ImageName: redis
+ImageVersion: 7.4.2
+ContainerPort: 6379
+ServicePort: 6379
+ServiceType: ClusterIP
+VolumeName: redis-data
+mountPath: /data
+RequestCPU: 250m
+RequestMemory: 64Mi
+LimitMemory: 128Mi
+LimitCPU: 500m
