@@ -172,6 +172,73 @@ ContainerEnvVars:
   - Once I have all chart in `helmfile` I want to deploy I can use : `helmfile sync`
  
   - If I want to delete all of those service I can use `helmfile delete`
+ 
+## Make my Frontend Accessible from the Browser (or anywhere outside Netword).
+
+#### Step 6 : Deploy Ingress Controller by using Helm 
+
+- Ingress Controller evaluate all the Rules in the Ingress component and implement the routing rules at Runtime
+
+- To add NGINX repo : `helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx`
+
+- Installing Helm Chart : `helm install ingress-controller ingress-nginx/ingress-nginx --set controller.publishService.enabled=true`
+  
+    - `--set controller.publishService.enabled=true`: This attribute make sure it automatically enable Public IP Address
+ 
+- Ingress Controller use Cloud Native in the backgroud. AWS's own NodeBalancer dynamically created and provisioned as I create Ingress Controller
+
+- This NodeBalancer will be come a Entry Point of my Cluster . It give me External IP, Ports .
+
+- NodeBalncer will forward the request coming in into Cluster to the Ingress Controller and to the Service base on Ingress rule I create
+
+#### Step 7: Create and Deploy a Ingress 
+
+- When you deploy an Ingress Controller in a cloud provider environment, the Ingress Controller’s Service of type LoadBalancer automatically provisions a cloud-native load balancer.
+
+- The cloud provider assigns a public DNS name or IP address to this load balancer.
+
+- This becomes your public endpoint — users send requests here.
+
+- The Ingress Controller receives the traffic from the load balancer and routes it internally according to the Ingress rules.
+
+- Visual flow
+  
+```
+[User Request] 
+     ↓
+[Cloud Load Balancer (Provisioned by Ingress Controller's LoadBalancer service)]
+     ↓
+[Ingress Controller]
+     ↓
+[Ingress Rules → Route traffic]
+     ↓
+[Kubernetes Services]
+     ↓
+[Pods / Apps]
+```
+
+- Then I will get that DNS file and put in my Ingress host :
+
+```
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: a6667475a1d5c429bbfdf23cc8100bb3-164349241.us-west-1.elb.amazonaws.com # This could be valid domain name
+    http:
+      paths:
+        - path: / # This is the path that will be used to access the service
+          pathType: Prefix
+          backend: # This is a target service that will used to forward the request
+            service:
+              name: frontend
+              port:
+                number: 8080
+```
+
 
 
 
