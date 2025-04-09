@@ -1,4 +1,10 @@
-[Go to Step by Step](#step-by-step-to-create-helm-chart)
+[What is Helm Chart](#what-is-helm-chart)
+[3 Ways to create Helm Chart](#3-ways-to-create-helm-chart)
+[Basic Structure](#basic-structure-of-helm-chart)
+[Visualize Whole picture](#visualize-whole-picture)
+[Images](#images-of-each-container)
+[Step by Step](#step-by-step-to-create-helm-chart)
+[Make my Frontend Accessible from the Browser](#make-frontend-accessible-from-the-browser)
 
 # Create Helm Chart for Boutique Microservices
 
