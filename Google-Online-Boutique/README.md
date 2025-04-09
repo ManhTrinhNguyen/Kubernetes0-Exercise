@@ -2,9 +2,9 @@
 - [3 Ways to create Helm Chart](#3-ways-to-create-helm-chart)
 - [Basic Structure](#basic-structure-of-helmchart)
 - [Visualize Whole picture](#Visualize-the-whole-Picture)
-[Images](#images-of-each-container)
-[Step by Step](#step-by-step-to-create-helm-chart)
-[Make my Frontend Accessible from the Browser](#make-frontend-accessible-from-the-browser)
+- [Images](#Image-of-each-Container)
+- [Step by Step](#step-by-step-to-create-helm-chart)
+- [Make my Frontend Accessible from the Browser](#Make-my-Frontend-Accessible-from-the-Browser (or anywhere outside Netword))
 
 # Create Helm Chart for Boutique Microservices
 
@@ -198,7 +198,7 @@ ContainerEnvVars:
  
   - If I want to delete all of those service I can use `helmfile delete`
  
-## Make my Frontend Accessible from the Browser (or anywhere outside Netword).
+## Make my Frontend Accessible from the Browser (or anywhere outside Netword)
 
 #### Step 6 : Deploy Ingress Controller by using Helm 
 
