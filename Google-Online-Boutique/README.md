@@ -111,6 +111,67 @@ ContainerEnvVars:
   value: "1"
 ```
 
+#### Step 4: Set value for those Deployment and Service . Also Redis and Front end 
+
+- I create a value folder : `mkdir values`
+
+- Then I set values of each service . For example : I want to set a `emailservice`
+
+  - Create `emailservice.yaml` : `touch emailservice.yaml` .
+ 
+  ```
+  AppName: emailservice
+  ReplicaCount: 2
+  ImageName: gcr.io/google-samples/microservices-demo/emailservice
+  ImageVersion: v0.8.0
+  ContainerPort: 8080
+  ServicePort: 8080
+  ServiceType: ClusterIP
+  ContainerEnvVars: 
+  - name: PORT
+    value: "8080"
+  - name: DISABLE_PROFILER
+    value: "1"
+  RequestMemory: 64Mi
+  RequestCPU: 250m
+  LimitMemory: 128Mi
+  LimitCPU: 500m
+  ```
+
+#### Step 5: Create Helmfile to deploy HelmChart 
+
+- To validate Template file : `helm template -f <value-file> <name-of-helm-chart>` . This will give me a nice preview from all the values sources 
+
+- Then I can deploy Helm Chart by using `helm install -f <value-file> <realease-name> <chart-name>` . But this way will take a lot of time especially I have a alot of Services .
+
+- **Best practice** : is to create `helmfile` then use that helm file to deploy helm chart
+
+  - Install Helm file : `brew install helmfile`
+ 
+  - Then I put the Name, Namespace, Chart folder, and values file in the Helm file . For example :
+ 
+  ```
+  releases:
+  - name: email-service
+    namespace: default
+    chart: microservices
+    values:
+      - values/emailservice.yaml
+  - name: adservice
+    namespace: default
+    chart: microservices
+    values:
+      - values/adservice.yaml
+  - name: cartservice
+    namespace: default
+    chart: microservices
+    values:
+      - values/cartservice.yaml
+  ```
+
+  - Once I have all chart in `helmfile` I want to deploy I can use : `helmfile sync`
+ 
+  - If I want to delete all of those service I can use `helmfile delete`
 
 
 
